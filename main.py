@@ -56,16 +56,14 @@ def process_filesend_step_1(message):
     file = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(
         API_TOKEN, file_info.file_path))
     rezult_file = file_to_convert(file_name)
-    # file = open(rezult_file, 'rb')
-    # bot.send_document(message.chat.id, file)
-    # os.remove(rezult)
+    file = open(rezult_file, 'rb')
+    bot.send_document(message.chat.id, file)
+    os.remove(rezult_file)
 
 
 def file_to_convert(file_name):
-    # command = 'unoconv -f pdf \'{}\''.format(f) os.system(command)
-    # os.system(command)
-    #command = 'unoconv -f pdf \'{}\''.format(file_name)
-    #os.system(command)
+    command = 'unoconv -f pdf \'{}\''.format(file_name)
+    os.system(command)
     p = os.path.abspath(file_name)
     name = os.path.basename(p)
     file_wo_extension = os.path.splitext(name)[0]
@@ -74,8 +72,8 @@ def file_to_convert(file_name):
 # random erroneous text
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    errMsg = f'''к сожалению я не понимаю вашу команду
-    пожалуйста используйте /help    
+    errMsg = f'''к сожалению я не понимаю вашу команду,
+    пожалуйста используйте /help
     '''
     bot.send_message(message.from_user.id, errMsg)
 
