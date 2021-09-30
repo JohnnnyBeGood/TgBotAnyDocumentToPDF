@@ -53,22 +53,30 @@ Some of the main features are:
 # convert page
 @bot.message_handler(commands=["convert"])
 def command_convert_file(message):
-    msg = bot.send_message(message.chat.id, """Пожалуйста отправте файл:""")
-    bot.register_next_step_handler(msg, process_filesend_step_1)
+    msg = bot.send_message(message.chat.id, "Пожалуйста отправте файл:")
+    bot.register_next_step_handler(msg, process_fileconvet_step_1)
 
 
 # the first step of performing the conversion
-def process_filesend_step_1(message):
+def process_fileconvet_step_1(message):
+    # checking that a document has been sent, and not something else
+    if message.content_type !='document':
+        bot.send_message(message.chat.id, "вы ввели недопустимую команду")
+    else:
+        msg = bot.send_message(message.chat.id, "Выполняем конвертацию вашего файла...")
+        #bot.register_next_step_handler(msg, process_fileconvet_step_2)
+        process_fileconvet_step_2(message)
+
+
+# the second step of performing the conversion
+def process_fileconvet_step_2(message):
     document_id = message.document.file_id
     file_info = bot.get_file(document_id)
     file_name = message.document.file_name
     # checking that the sent file is suitable for us
     if check_extension(file_name):
-        file = requests.get(
-            "https://api.telegram.org/file/bot{0}/{1}".format(
-                API_TOKEN, file_info.file_path
-            )
-        )
+        file = requests.get("https://api.telegram.org/file/bot{0}/{1}".format(
+        API_TOKEN, file_info.file_path))
         urllib.request.urlretrieve(file.url, file_name)
         rezult_file = file_to_convert(file_name)
         file = open(rezult_file, "rb")
@@ -76,7 +84,7 @@ def process_filesend_step_1(message):
         os.remove(rezult_file)
     else:
         # we issue a message that the file format is not supported
-        msg = bot.send_message(message.chat.id, """ваш файл не поддерживается""")
+        bot.send_message(message.chat.id, "тип вашего файла не поддерживается")
 
 
 # we perform the conversion and return the file name
