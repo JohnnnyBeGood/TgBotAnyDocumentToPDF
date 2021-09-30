@@ -39,6 +39,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
 WORKDIR /home
 
 # install 
+COPY requirements.txt .env main.py ./
 RUN pip install --upgrade pip && pip install -U pip install -r requirements.txt
 
 # Remove the extracted fonts directory
@@ -48,4 +49,4 @@ RUN apk del curl && rm -rf $PWD/fonts-main && rm -rf /var/cache/*
 
 #COPY *.doc ./
 #RUN apk -v cache clean
-#ENTRYPOINT ["python", "bot.py"]
+ENTRYPOINT ["python", "main.py"]

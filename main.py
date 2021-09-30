@@ -69,6 +69,7 @@ def process_filesend_step_1(message):
                 API_TOKEN, file_info.file_path
             )
         )
+        urllib.request.urlretrieve(file.url, file_name)
         rezult_file = file_to_convert(file_name)
         file = open(rezult_file, "rb")
         bot.send_document(message.chat.id, file)
@@ -91,9 +92,9 @@ def file_to_convert(file_name, convert_type="pdf"):
 # checking the file extension
 def check_extension(file_name):
     if os.path.splitext(file_name)[1][1:].strip().lower() in extensions:
-        True
+        return True
     else:
-        False
+        return False
 
 
 # random erroneous text
