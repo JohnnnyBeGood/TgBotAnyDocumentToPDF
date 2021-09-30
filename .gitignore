@@ -111,6 +111,7 @@ env.bak/
 venv.bak/
 bot_venv/
 .handler-saves/
+.vscode/
 
 # Spyder project settings
 .spyderproject
