@@ -39,7 +39,7 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
 WORKDIR /home
 
 # install 
-RUN pip install --upgrade pip && pip install -U pip pyTelegramBotAPI
+RUN pip install --upgrade pip && pip install -U pip install -r requirements.txt
 
 # Remove the extracted fonts directory
 # Remove the following line if you're installing more applications
