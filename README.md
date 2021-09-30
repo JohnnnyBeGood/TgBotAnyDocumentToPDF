@@ -15,6 +15,7 @@ you need to create a **.env** file and put the Telegram token there
 
 #
 1. on your VDS, run the command
+
 ` wget https://github.com/JohnnnyBeGood/TgBotAnyDocumentToPDF/archive/refs/heads/main.zip `
 
 2. in the folder **TgBotAnyDocumentToPDF-main** run the command ` touch .env `
