@@ -28,7 +28,7 @@ RUN apk add --no-cache bash \
 RUN apk --no-cache add msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f -v
-    
+
 # install Google fonts
 # RUN wget https://github.com/google/fonts/archive/main.tar.gz -O gf.tar.gz
 # RUN tar -xf gf.tar.gz
@@ -39,8 +39,8 @@ RUN apk --no-cache add msttcorefonts-installer fontconfig && \
 
 WORKDIR /home
 
-# install 
-COPY requirements.txt .env main.py ./
+# install
+COPY requirements.txt main.py ./
 RUN pip install --upgrade pip && pip install -U pip install -r requirements.txt
 
 # Remove the extracted fonts directory
