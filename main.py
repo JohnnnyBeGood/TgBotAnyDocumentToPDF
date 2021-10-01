@@ -1,23 +1,24 @@
 import os
 import telebot
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from os.path import join, dirname
 import requests
 import urllib
 
 
 # иницилизация бота и токена бота
-dotenv_path = join(dirname(__file__), ".env")
-load_dotenv(dotenv_path)
-API_TOKEN = os.getenv("TOKEN")
+#dotenv_path = join(dirname(__file__), ".env")
+#load_dotenv(dotenv_path)
+#API_TOKEN = os.getenv("TOKEN")
+API_TOKEN = os.environ["TG_TOKEN"]
 bot = telebot.TeleBot(API_TOKEN)
 
 
 # command description used in the "help" command
 commands = {
-    "start": "Get used to the bot",
-    "help": "Gives you information about the available commands",
-    "convert": "Converting a file",
+    "start"   : "Get used to the bot",
+    "help"    : "Gives you information about the available commands",
+    "convert" : "Converting a file",
 }
 # list of supported file formats
 extensions = ["docx", "doc", "rtf", "txt", "otf"]
